@@ -1,0 +1,48 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/gateway/src",
+  "monorepo": true,
+  "root": "apps/gateway",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/gateway/tsconfig.app.json"
+  },
+  "projects": {
+    "gateway": {
+      "type": "application",
+      "root": "apps/gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+      }
+    },
+    "residents": {
+      "type": "application",
+      "root": "apps/residents",
+      "entryFile": "main",
+      "sourceRoot": "apps/residents/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/residents/tsconfig.app.json"
+      }
+    },
+    "dwellings": {
+      "type": "application",
+      "root": "apps/dwellings",
+      "entryFile": "main",
+      "sourceRoot": "apps/dwellings/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/dwellings/tsconfig.app.json"
+      }
+    },
+    "registry": {
+      "type": "application",
+      "root": "apps/registry",
+      "entryFile": "main",
+      "sourceRoot": "apps/registry/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/registry/tsconfig.app.json"
+      }
+    }
+  }
+}
