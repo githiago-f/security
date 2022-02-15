@@ -18,6 +18,7 @@ specifiers:
   axios: ^0.26.0
   class-transformer: ^0.5.1
   eslint: ^8.0.1
+  express: ^4.17.2
   jest: ^27.2.5
   reflect-metadata: ^0.1.13
   rimraf: ^3.0.2
@@ -38,6 +39,7 @@ dependencies:
   '@nestjs/platform-express': 8.2.6_732a54a2558f64827b8cc4f9baac4f1f
   axios: 0.26.0
   class-transformer: 0.5.1
+  express: 4.17.2
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.5.4
