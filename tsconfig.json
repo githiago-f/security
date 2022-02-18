@@ -30,6 +30,9 @@
       ],
       "@dwellings/*": [
         "./apps/dwellings/src/*"
+      ],
+      "@shared/*": [
+        "./apps/shared/*"
       ]
     }
   }
