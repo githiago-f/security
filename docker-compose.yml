@@ -1,0 +1,76 @@
+version: '3.9'
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  default:
+    driver: local
+
+services:
+  registry:
+    env_file: ./apps/registry/.env
+    build:
+      dockerfile: ./.docker/Dockerfile
+      context: .
+    container_name: security-registry
+    command: pnpm start:dev registry
+    restart: unless-stopped
+    expose:
+      - "${REGISTRY_PORT}"
+    volumes:
+      - ./apps/registry:/usr/src/apps/apps/registry
+      - /usr/src/apps/node_modules
+
+  dwellings:
+    env_file: ./apps/dwellings/.env
+    build:
+      dockerfile: ./.docker/Dockerfile
+      context: .
+    container_name: security-dwellings
+    command: pnpm start:dev dwellings
+    restart: unless-stopped
+    expose:
+      - '${DWELLINGS_PORT}'
+    volumes:
+      - ./apps/dwellings:/usr/src/apps/apps/dwellings
+      - /usr/src/apps/node_modules
+    depends_on:
+      - registry
+
+  residents:
+    env_file: ./apps/residents/.env
+    build:
+      dockerfile: ./.docker/Dockerfile
+      context: .
+    container_name: security-residents
+    command: pnpm start:dev residents
+    restart: unless-stopped
+    expose:
+      - "${RESIDENTS_PORT}"
+    volumes:
+      - ./apps/residents:/usr/src/apps/apps/residents
+      - /usr/src/apps/node_modules
+    depends_on:
+      - registry
+
+  gateway:
+    env_file: ./apps/gateway/.env
+    build:
+      dockerfile: ./.docker/Dockerfile
+      context: .
+    container_name: security-gateway
+    command: pnpm start:dev gateway
+    restart: unless-stopped
+    expose:
+      - '${GATEWAY_PORT}'
+    volumes:
+      - ./apps/gateway:/usr/src/apps/apps/gateway
+      - /usr/src/apps/node_modules
+    ports:
+      - '${GATEWAY_PORT}:${GATEWAY_PORT}'
+    depends_on:
+      - registry
+      - dwellings
+      - residents
