@@ -8,12 +8,11 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        port: 3002,
+        port: +process.env.PORT || 3002,
         host: '0.0.0.0',
       },
     },
   );
-
   app.listen();
 }
 bootstrap();

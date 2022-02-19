@@ -4,8 +4,8 @@ import { registryConfig } from 'apps/shared/config/registry';
 import { ResidentsController } from './event/residents/residents.controller';
 import { ResidentsModule } from '@residents/modules/residents/residents.module';
 import { ServiceConfig } from '@shared/types/service-config';
-import { serviceConfig } from '@dwellings/app/config/service';
 import { registerService } from '@shared/sdk/register-service';
+import { serviceConfig } from './config/service';
 
 @Module({
   imports: [

@@ -5,7 +5,7 @@ export async function registerService(
   registryHost: string,
   { service, port }: ServiceConfig
 ) {
-  await axios.create({}).post(
+  return axios.create({}).post(
     registryHost,
     {
       name: service,

@@ -1,3 +1,4 @@
 export enum Services {
-  DWELLINGS = 'DWELLINGS'
+  DWELLINGS = 'DWELLINGS',
+  RESIDENTS = 'RESIDENTS'
 }

@@ -5,6 +5,7 @@ import { clientFactory } from 'apps/shared/client.factory';
 import { registryConfig } from 'apps/shared/config/registry';
 import { Services } from './config/services';
 import { DwellingsController } from './http/dwellings/dwellings.controller';
+import { ResidentsController } from './http/residents/residents.controller';
 
 @Module({
   imports: [
@@ -19,9 +20,15 @@ import { DwellingsController } from './http/dwellings/dwellings.controller';
         inject: [ConfigService],
         imports: [ConfigModule],
       },
+      {
+        name: Services.RESIDENTS,
+        useFactory: clientFactory('residents'),
+        inject: [ConfigService],
+        imports: [ConfigModule],
+      },
     ]),
   ],
-  controllers: [ DwellingsController ],
+  controllers: [ DwellingsController, ResidentsController ],
   providers: [],
 })
 export class AppModule {}

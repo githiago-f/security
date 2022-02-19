@@ -1,4 +1,4 @@
-import { Module, OnApplicationBootstrap } from '@nestjs/common';
+import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { DwellingsController } from './event/dwellings/dwellings.controller';
 import { DwellingsModule } from '@dwellings/modules/dwellings/dwellings.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -18,12 +18,13 @@ import { registerService } from '@shared/sdk/register-service';
   controllers: [DwellingsController],
 })
 export class AppModule implements OnApplicationBootstrap {
+  private readonly LOG = new Logger(AppModule.name);
   constructor(private readonly config: ConfigService) {}
 
   async onApplicationBootstrap() {
     const registryHost = this.config.get('registry.service');
     const service = this.config.get<ServiceConfig>('dwellings');
-    await registerService(registryHost, service);
+    const data = await registerService(registryHost, service);
+    this.LOG.debug('Registered ::: ' + JSON.stringify(data));
   }
-
 }
