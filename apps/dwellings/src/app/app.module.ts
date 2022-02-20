@@ -24,7 +24,7 @@ export class AppModule implements OnApplicationBootstrap {
   async onApplicationBootstrap() {
     const registryHost = this.config.get('registry.service');
     const service = this.config.get<ServiceConfig>('dwellings');
-    const data = await registerService(registryHost, service);
-    this.LOG.debug('Registered ::: ' + JSON.stringify(data));
+    const { data } = await registerService(registryHost, service);
+    this.LOG.debug('Registered ::: ' + data);
   }
 }
