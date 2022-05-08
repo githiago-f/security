@@ -20,7 +20,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/security/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/security/test/jest-e2e.json",
+    "build-with-tsc": "npm run prebuild && npx tsc",
+    "typeorm": "npm run build-with-tsc && ./node_modules/.bin/typeorm"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -28,6 +30,7 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/microservices": "^8.2.6",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^8.0.3",
     "axios": "^0.26.0",
     "class-transformer": "^0.5.1",
     "express": "^4.17.2",

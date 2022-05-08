@@ -35,5 +35,10 @@
         "./apps/shared/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "**/*.spec.*",
+    "**/*e2e-spec.*",
+    "dist"
+  ]
 }
