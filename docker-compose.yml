@@ -9,8 +9,30 @@ volumes:
     driver: local
 
 services:
+  db:
+    image: postgres:latest
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    expose:
+      - ${DB_PORT}
+    environment:
+      DATABASE_URL: postgres://${DB_USERNAME}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_DEFAULT_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DEFAULT_DATABASE}
+      PGDATA: /data/postgres
+    volumes:
+      - default:/data/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   registry:
-    env_file: ./apps/registry/.env
+    env_file:
+      - ./apps/registry/.env
+      - .env
     build:
       dockerfile: ./.docker/Dockerfile
       context: .
@@ -24,7 +46,9 @@ services:
       - /usr/src/apps/node_modules
 
   dwellings:
-    env_file: ./apps/dwellings/.env
+    env_file:
+      - ./apps/dwellings/.env
+      - .env
     build:
       dockerfile: ./.docker/Dockerfile
       context: .
@@ -37,10 +61,13 @@ services:
       - ./apps/dwellings:/usr/src/apps/apps/dwellings
       - /usr/src/apps/node_modules
     depends_on:
+      - db
       - registry
 
   residents:
-    env_file: ./apps/residents/.env
+    env_file:
+      - ./apps/residents/.env
+      - .env
     build:
       dockerfile: ./.docker/Dockerfile
       context: .
@@ -56,7 +83,9 @@ services:
       - registry
 
   gateway:
-    env_file: ./apps/gateway/.env
+    env_file:
+      - ./apps/gateway/.env
+      - .env
     build:
       dockerfile: ./.docker/Dockerfile
       context: .
