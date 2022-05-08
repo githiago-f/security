@@ -7,9 +7,10 @@ export class DwellingsController {
   private readonly LOG = new Logger(DwellingsController.name);
   constructor(private readonly dwellingsService: DwellingsService) {}
 
-  @MessagePattern('dwelling-hello_world')
-  getHello(): string {
-    this.LOG.debug('dwelling hello_world');
-    return this.dwellingsService.getHello();
+  @MessagePattern('dwelling-find_by_resident')
+  async findDwellings(residentId: string) {
+    const dwellings = await this.dwellingsService
+      .findDwellingsByResidentIdentity(residentId);
+    return dwellings;
   }
 }
